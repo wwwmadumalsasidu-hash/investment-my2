@@ -8,124 +8,99 @@
 
 body{
   min-height:100vh;
-  background:linear-gradient(135deg,#141e30,#243b55);
+  background:radial-gradient(circle at top,#1e3a8a,#020617);
   color:#fff;
-  padding-bottom:80px;
+  padding-bottom:90px;
 }
 
-/* =========================
-   TOP TITLE
-========================= */
+/* =====================
+   TOP TITLE CARD
+===================== */
 .top-title{
-  margin:20px auto;
-  width:90%;
+  margin:22px auto;
+  width:88%;
   max-width:380px;
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  border-radius:18px;
-  padding:18px;
+  background:linear-gradient(135deg,#7c7cff,#a855f7);
+  border-radius:22px;
+  padding:18px 16px;
   text-align:center;
-  box-shadow:0 10px 25px rgba(0,0,0,0.35);
+  box-shadow:0 15px 35px rgba(0,0,0,0.45);
 }
 
 .top-title h1{
-  font-size:18px;
+  font-size:17px;
+  font-weight:700;
   letter-spacing:1px;
 }
 
 .top-title p{
-  font-size:13px;
-  opacity:0.9;
-  margin-top:4px;
+  font-size:12px;
+  opacity:0.85;
+  margin-top:5px;
 }
 
-/* =========================
+/* =====================
    BALANCE CARD
-========================= */
+===================== */
 .balance-wrapper{
   display:flex;
   justify-content:center;
-  margin-top:25px;
+  margin-top:28px;
 }
 
 .balance-card{
   width:85%;
   max-width:320px;
-  background:linear-gradient(135deg,#00c6ff,#0072ff);
-  padding:25px;
-  border-radius:20px;
+  background:linear-gradient(135deg,#00c6ff,#0ea5e9);
+  padding:26px 20px;
+  border-radius:24px;
   text-align:center;
-  box-shadow:0 15px 30px rgba(0,0,0,0.4);
+  box-shadow:0 20px 40px rgba(0,0,0,0.45);
 }
 
 .balance-card span{
-  font-size:14px;
+  font-size:13px;
   opacity:0.9;
 }
 
 .balance-card h2{
-  font-size:32px;
-  margin-top:8px;
+  font-size:34px;
+  margin-top:10px;
+  font-weight:800;
 }
 
-/* =========================
-   ACTION BUTTONS
-========================= */
-.actions{
-  width:90%;
-  max-width:380px;
-  margin:30px auto;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-}
-
-.action-card{
-  background:#0b1623;
-  padding:18px;
-  border-radius:16px;
-  text-align:center;
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
-  transition:0.3s;
-}
-
-.action-card:hover{
-  transform:scale(1.03);
-}
-
-.action-card a{
-  color:#fff;
-  text-decoration:none;
-  font-size:15px;
-  font-weight:600;
-  display:block;
-}
-
-/* =========================
-   BOTTOM NAVIGATION
-========================= */
+/* =====================
+   BOTTOM NAV
+===================== */
 .bottom-nav{
   position:fixed;
   bottom:0;
   width:100%;
-  background:#0b1623;
+  background:linear-gradient(135deg,#020617,#020617);
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  padding:10px 0;
+  padding:12px 0 10px;
   border-top:1px solid rgba(255,255,255,0.1);
 }
 
 .bottom-nav a{
   text-decoration:none;
-  color:#fff;
+  color:#e5e7eb;
   text-align:center;
-  font-size:13px;
+  font-size:12px;
 }
 
 .bottom-nav a span{
   display:block;
-  font-size:18px;
+  font-size:20px;
+  margin-bottom:2px;
 }
 
 .bottom-nav a:hover{
-  opacity:0.8;
-  }
+  color:#38bdf8;
+}
+
+/* ACTIVE TAB (optional) */
+.bottom-nav a.active{
+  color:#38bdf8;
+                            }
