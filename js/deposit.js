@@ -4,7 +4,7 @@ import { onAuthStateChanged } from
 
 let userEmail = "";
 
-// check login
+// Check user login
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     location.href = "index.html";
@@ -13,14 +13,8 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// wait until page loads
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("submitDepositBtn");
-
-  if (!btn) {
-    console.error("Submit button not found");
-    return;
-  }
 
   btn.addEventListener("click", () => {
     const amount = document.getElementById("amount").value;
@@ -30,10 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const whatsappLink = "https://wa.me/94717503915";
+    // Telegram username
+    const telegramUser = "Sasindumadumal";
 
     const message = `
-📥 NEW DEPOSIT REQUEST
+📥 NEW DEPOSIT REQUEST (TELEGRAM)
 
 👤 User Email:
 ${userEmail}
@@ -41,18 +36,24 @@ ${userEmail}
 💰 Deposit Amount:
 LKR ${amount}
 
-🏦 Bank: NSB
-Account: 100085101379
+🏦 Bank Details:
+National Savings Bank
+Account No: 100085101379
 Name: U.P.S. MADHUMAL
+Branch: Kuliyapitiya
 
-🆔 Binance ID: 799445746
+🆔 Binance ID:
+799445746
 
-📸 Receipt attached below
+📸 Receipt will be sent here
     `;
 
-    const finalUrl =
-      whatsappLink + "?text=" + encodeURIComponent(message);
+    const telegramUrl =
+      "https://t.me/" +
+      telegramUser +
+      "?text=" +
+      encodeURIComponent(message);
 
-    window.open(finalUrl, "_blank");
+    window.open(telegramUrl, "_blank");
   });
 });
