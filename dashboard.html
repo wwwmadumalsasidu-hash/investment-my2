@@ -1,36 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard | Investment App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="top-bar">
-  <h3>Investment Dashboard</h3>
-  <button onclick="logout()">Logout</button>
-</header>
+<h2>Dashboard</h2>
+<div id="balance">Balance: --</div>
 
-<div class="container">
-  <div class="card">
-    <h4>Main Balance</h4>
-    <p id="balance">Loading...</p>
-  </div>
+<nav>
+  <a href="deposit.html">Deposit</a>
+  <a href="withdraw.html">Withdraw</a>
+  <a href="plans.html">Plans</a>
+  <a href="profile.html">Profile</a>
+</nav>
 
-  <div class="actions">
-    <a href="investment.html" class="btn">Investment Plans</a>
-  </div>
-
-  <div class="card">
-    <h4>User Info</h4>
-    <p id="userEmail"></p>
-    <p id="username"></p>
-  </div>
-</div>
-
-<script type="module" src="js/firebase.js"></script>
-<script type="module" src="js/dashboard.js"></script>
+<script type="module" src="dashboard.js"></script>
 </body>
 </html>
