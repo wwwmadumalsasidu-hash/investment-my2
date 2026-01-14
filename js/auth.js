@@ -4,36 +4,51 @@ import {
   signInWithEmailAndPassword,
   sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
 import {
-  doc, setDoc, getDoc, serverTimestamp
+  doc, setDoc, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-window.register = async () => {
-  const email = emailInput();
-  const password = passwordInput();
+/* REGISTER */
+window.register = async function () {
+  try {
+    const email = emailInput();
+    const password = passwordInput();
 
-  const cred = await createUserWithEmailAndPassword(auth, email, password);
-  await sendEmailVerification(cred.user);
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    await sendEmailVerification(cred.user);
 
-  await setDoc(doc(db, "users", cred.user.uid), {
-    email,
-    balance: 0,
-    createdAt: serverTimestamp()
-  });
+    await setDoc(doc(db, "users", cred.user.uid), {
+      email: email,
+      balance: 0,
+      createdAt: serverTimestamp()
+    });
 
-  alert("Registered. Verify email.");
+    alert("Registered successfully. Please verify your email.");
+  } catch (err) {
+    alert(err.message);
+    console.error(err);
+  }
 };
 
-window.login = async () => {
-  const email = emailInput();
-  const password = passwordInput();
+/* LOGIN */
+window.login = async function () {
+  try {
+    const email = emailInput();
+    const password = passwordInput();
 
-  const cred = await signInWithEmailAndPassword(auth, email, password);
-  if (!cred.user.emailVerified) {
-    alert("Verify your email first");
-    return;
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+
+    if (!cred.user.emailVerified) {
+      alert("Please verify your email first");
+      return;
+    }
+
+    location.href = "dashboard.html";
+  } catch (err) {
+    alert(err.message);
+    console.error(err);
   }
-  location.href = "dashboard.html";
 };
 
 function emailInput() {
