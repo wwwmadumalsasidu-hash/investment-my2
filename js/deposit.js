@@ -4,6 +4,7 @@ import { onAuthStateChanged } from
 
 let userEmail = "";
 
+// check login
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     location.href = "index.html";
@@ -12,18 +13,26 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-window.submitDeposit = () => {
-  const amount = document.getElementById("amount").value;
+// wait until page loads
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("submitDepositBtn");
 
-  if (!amount || amount <= 0) {
-    alert("❌ Please enter a valid amount");
+  if (!btn) {
+    console.error("Submit button not found");
     return;
   }
 
-  // YOUR WHATSAPP LINK
-  const whatsappLink = "https://wa.me/94717503915";
+  btn.addEventListener("click", () => {
+    const amount = document.getElementById("amount").value;
 
-  const message = `
+    if (!amount || amount <= 0) {
+      alert("❌ Please enter a valid amount");
+      return;
+    }
+
+    const whatsappLink = "https://wa.me/94717503915";
+
+    const message = `
 📥 NEW DEPOSIT REQUEST
 
 👤 User Email:
@@ -33,15 +42,17 @@ ${userEmail}
 LKR ${amount}
 
 🏦 Bank: NSB
+Account: 100085101379
+Name: U.P.S. MADHUMAL
+
 🆔 Binance ID: 799445746
 
-📸 Please find my payment receipt attached below.
-  `;
+📸 Receipt attached below
+    `;
 
-  const finalUrl =
-    whatsappLink + "?text=" + encodeURIComponent(message);
+    const finalUrl =
+      whatsappLink + "?text=" + encodeURIComponent(message);
 
-  window.open(finalUrl, "_blank");
-
-  alert("✅ WhatsApp opened. Please attach receipt image & send.");
-};
+    window.open(finalUrl, "_blank");
+  });
+});
