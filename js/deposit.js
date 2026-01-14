@@ -1,13 +1,47 @@
-import { auth, db } from "./firebase.js";
-import { addDoc, collection, serverTimestamp } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth } from "./firebase.js";
+import { onAuthStateChanged } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-window.sendDeposit = async () => {
-  await addDoc(collection(db, "deposits"), {
-    uid: auth.currentUser.uid,
-    email: auth.currentUser.email,
-    amount: document.getElementById("amount").value,
-    createdAt: serverTimestamp()
-  });
-  alert("Deposit request sent");
+let userEmail = "";
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    location.href = "index.html";
+  } else {
+    userEmail = user.email;
+  }
+});
+
+window.submitDeposit = () => {
+  const amount = document.getElementById("amount").value;
+
+  if (!amount || amount <= 0) {
+    alert("❌ Please enter a valid amount");
+    return;
+  }
+
+  // YOUR WHATSAPP LINK
+  const whatsappLink = "https://wa.me/94717503915";
+
+  const message = `
+📥 NEW DEPOSIT REQUEST
+
+👤 User Email:
+${userEmail}
+
+💰 Deposit Amount:
+LKR ${amount}
+
+🏦 Bank: NSB
+🆔 Binance ID: 799445746
+
+📸 Please find my payment receipt attached below.
+  `;
+
+  const finalUrl =
+    whatsappLink + "?text=" + encodeURIComponent(message);
+
+  window.open(finalUrl, "_blank");
+
+  alert("✅ WhatsApp opened. Please attach receipt image & send.");
 };
