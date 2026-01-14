@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Investment Plans</title>
+  <title>Investment Plans | CHUTTA INVESTMENT PLAN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -10,50 +10,71 @@
 
 <div class="container">
 
-  <h2>📊 Investment Plans</h2>
+  <h2 style="text-align:center;">📊 Investment Plans</h2>
+  <p class="small" style="text-align:center;">
+    Choose a plan & earn daily profit for 30 days
+  </p>
 
+  <!-- PLAN 1 -->
   <div class="box plan">
-    <h3>Starter Plan</h3>
-    <p>Price: <b>LKR 1,000</b></p>
-    <p>Validity: 30 Days</p>
-    <p>Total Return: <b>LKR 3,000</b></p>
-    <button onclick="buyPlan(1000, 3000)">Buy Now</button>
+    <h3>💠 Starter Plan</h3>
+    <p>💰 Price: <b>LKR 1,000</b></p>
+    <p>⏳ Validity: 30 Days</p>
+    <p>📈 Total Return: <b>LKR 3,000</b></p>
+    <p class="small" id="status-PLAN_1000"></p>
+    <button onclick="buyPlan('PLAN_1000', 1000, 3000)">Buy Now</button>
   </div>
 
+  <!-- PLAN 2 -->
   <div class="box plan">
-    <h3>Bronze Plan</h3>
-    <p>Price: <b>LKR 3,000</b></p>
-    <p>Validity: 30 Days</p>
-    <p>Total Return: <b>LKR 9,000</b></p>
-    <button onclick="buyPlan(3000, 9000)">Buy Now</button>
+    <h3>🥉 Bronze Plan</h3>
+    <p>💰 Price: <b>LKR 3,000</b></p>
+    <p>⏳ Validity: 30 Days</p>
+    <p>📈 Total Return: <b>LKR 9,000</b></p>
+    <p class="small" id="status-PLAN_3000"></p>
+    <button onclick="buyPlan('PLAN_3000', 3000, 9000)">Buy Now</button>
   </div>
 
+  <!-- PLAN 3 -->
   <div class="box plan">
-    <h3>Silver Plan</h3>
-    <p>Price: <b>LKR 5,000</b></p>
-    <p>Validity: 30 Days</p>
-    <p>Total Return: <b>LKR 15,000</b></p>
-    <button onclick="buyPlan(5000, 15000)">Buy Now</button>
+    <h3>🥈 Silver Plan</h3>
+    <p>💰 Price: <b>LKR 5,000</b></p>
+    <p>⏳ Validity: 30 Days</p>
+    <p>📈 Total Return: <b>LKR 15,000</b></p>
+    <p class="small" id="status-PLAN_5000"></p>
+    <button onclick="buyPlan('PLAN_5000', 5000, 15000)">Buy Now</button>
   </div>
 
+  <!-- PLAN 4 -->
   <div class="box plan">
-    <h3>Gold Plan</h3>
-    <p>Price: <b>LKR 10,000</b></p>
-    <p>Validity: 30 Days</p>
-    <p>Total Return: <b>LKR 36,000</b></p>
-    <button onclick="buyPlan(10000, 36000)">Buy Now</button>
+    <h3>🥇 Gold Plan</h3>
+    <p>💰 Price: <b>LKR 10,000</b></p>
+    <p>⏳ Validity: 30 Days</p>
+    <p>📈 Total Return: <b>LKR 36,000</b></p>
+    <p class="small" id="status-PLAN_10000"></p>
+    <button onclick="buyPlan('PLAN_10000', 10000, 36000)">Buy Now</button>
   </div>
 
+  <!-- PLAN 5 -->
   <div class="box plan">
-    <h3>Platinum Plan</h3>
-    <p>Price: <b>LKR 30,000</b></p>
-    <p>Validity: 30 Days</p>
-    <p>Total Return: <b>LKR 105,000</b></p>
-    <button onclick="buyPlan(30000, 105000)">Buy Now</button>
+    <h3>💎 Platinum Plan</h3>
+    <p>💰 Price: <b>LKR 30,000</b></p>
+    <p>⏳ Validity: 30 Days</p>
+    <p>📈 Total Return: <b>LKR 105,000</b></p>
+    <p class="small" id="status-PLAN_30000"></p>
+    <button onclick="buyPlan('PLAN_30000', 30000, 105000)">Buy Now</button>
   </div>
 
 </div>
 
+<!-- Bottom Nav -->
+<div class="bottom-nav">
+  <a href="dashboard.html">🏠<br>Home</a>
+  <a href="deposit.html">💰<br>Deposit</a>
+  <a href="withdraw.html">💸<br>Withdraw</a>
+  <a href="profile.html">👤<br>Profile</a>
+</div>
+
 <script type="module" src="js/plans.js"></script>
 </body>
-  </html>
+</html>
