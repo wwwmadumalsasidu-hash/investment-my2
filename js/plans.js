@@ -1,15 +1,11 @@
 import { auth, db } from "./firebase.js";
 import { onAuthStateChanged } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import {
-  doc,
-  getDoc,
-  updateDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { doc, getDoc, updateDoc } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 let currentUser = null;
 
-/* AUTH CHECK */
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     location.href = "index.html";
@@ -19,24 +15,22 @@ onAuthStateChanged(auth, async (user) => {
   loadActivePlans();
 });
 
-/* LOAD ACTIVE PLANS ON PAGE LOAD */
 async function loadActivePlans() {
-  const userRef = doc(db, "users", currentUser.uid);
-  const snap = await getDoc(userRef);
+  const snap = await getDoc(doc(db, "users", currentUser.uid));
   if (!snap.exists()) return;
 
   const activePlans = snap.data().activePlans || {};
-
   Object.keys(activePlans).forEach(planId => {
     disableButton(planId);
     startTimer(planId, activePlans[planId].endDate);
   });
 }
 
-/* BUY PLAN */
-window.buyPlan = async (planId, price, totalReturn) => {
-  if (!currentUser) return;
+function buyPlan(planId, price, totalReturn) {
+  activatePlan(planId, price, totalReturn);
+}
 
+async function activatePlan(planId, price, totalReturn) {
   const userRef = doc(db, "users", currentUser.uid);
   const snap = await getDoc(userRef);
   if (!snap.exists()) return;
@@ -57,23 +51,24 @@ window.buyPlan = async (planId, price, totalReturn) => {
   const startDate = Date.now();
   const endDate = startDate + 30 * 24 * 60 * 60 * 1000;
 
+  activePlans[planId] = {
+    price,
+    totalReturn,
+    startDate,
+    endDate,
+    status: "ACTIVE"
+  };
+
   await updateDoc(userRef, {
     balance: data.balance - price,
-    [`activePlans.${planId}`]: {
-      price,
-      totalReturn,
-      startDate,
-      endDate,
-      status: "ACTIVE"
-    }
+    activePlans: activePlans
   });
 
-  alert("✅ Plan Activated Successfully");
+  alert("✅ Plan Activated");
   disableButton(planId);
   startTimer(planId, endDate);
-};
+}
 
-/* DISABLE BUTTON */
 function disableButton(planId) {
   const box = document.querySelector(`[data-plan="${planId}"]`);
   if (!box) return;
@@ -82,24 +77,24 @@ function disableButton(planId) {
   btn.innerText = "Active";
 }
 
-/* TIMER */
 function startTimer(planId, endDate) {
   const el = document.getElementById("status-" + planId);
   if (!el) return;
 
-  const interval = setInterval(() => {
+  const timer = setInterval(() => {
     const diff = endDate - Date.now();
-
     if (diff <= 0) {
       el.innerText = "✅ Completed";
-      clearInterval(interval);
+      clearInterval(timer);
       return;
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
 
-    el.innerText = `🟢 Active | ${days}d ${hours}h ${minutes}m`;
+    el.innerText = `🟢 Active | ${d}d ${h}h ${m}m`;
   }, 1000);
 }
+
+window.buyPlan = buyPlan;
