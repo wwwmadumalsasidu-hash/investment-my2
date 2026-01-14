@@ -2,18 +2,22 @@
 <html>
 <head>
   <title>Register</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<h2>Register</h2>
+<div class="container">
+  <h2>Create Account</h2>
 
-<input id="email" placeholder="Email">
-<input id="password" type="password" placeholder="Password">
-<button onclick="register()">Create Account</button>
+  <input id="email" type="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
 
-<p><a href="index.html">Login</a></p>
+  <button onclick="register()">Register</button>
 
-<script type="module" src="auth.js"></script>
+  <p><a href="index.html">Login</a></p>
+</div>
+
+<script type="module" src="js/auth.js"></script>
 </body>
 </html>
