@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Deposit | CHUTTA INVESTMENT PLAN</title>
+  <title>Deposit</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -10,57 +10,59 @@
 
 <div class="container">
 
-  <h2 style="text-align:center;">💰 Deposit Funds</h2>
-  <p class="small" style="text-align:center;">
-    Send payment & upload receipt via WhatsApp
-  </p>
+  <h2 style="text-align:center;">💰 Deposit</h2>
 
   <!-- BANK DETAILS BOX -->
   <div class="box">
-    <h3 style="text-align:center; color:#38bdf8;">🏦 Payment Details</h3>
+    <h3>🏦 Bank / Payment Details</h3>
 
-    <p style="line-height:1.8; font-size:14px;">
-      <b>Bank:</b> NATIONAL SAVINGS BANK<br>
-      <b>Account No:</b> 100085101379<br>
-      <b>Account Name:</b> U.P.S. MADHUMAL<br>
-      <b>Branch:</b> KULIYAPITIYA
+    <p><b>Bank:</b> National Savings Bank</p>
+    <p><b>Account No:</b> 100085101379</p>
+    <p><b>Account Name:</b> U.P.S. MADHUMAL</p>
+    <p><b>Branch:</b> Kuliyapitiya</p>
+
+    <hr>
+
+    <p><b>Binance ID:</b> 799445746</p>
+  </div>
+
+  <!-- MESSAGE INSTRUCTION BOX -->
+  <div class="box">
+    <h3>📩 After Payment</h3>
+
+    <p>
+      Please send the following details to our WhatsApp:
     </p>
 
-    <hr style="border:0.5px solid #1e293b; margin:10px 0;">
+    <ul>
+      <li>📧 Your Email Address</li>
+      <li>💰 Deposit Amount</li>
+      <li>📸 Payment Receipt Screenshot</li>
+    </ul>
 
-    <p style="line-height:1.8; font-size:14px;">
-      <b>BINANCE ID:</b> 799445746
+    <p class="small">
+      ⚠️ Deposits will be approved after verification.
     </p>
   </div>
 
-  <!-- DEPOSIT FORM -->
-  <div class="box">
-    <h3 style="text-align:center; color:#22c55e;">📥 Submit Deposit</h3>
-
-    <input
-      type="number"
-      id="amount"
-      placeholder="Enter Deposit Amount (LKR)"
-    >
-
-    <p class="small" style="margin-top:8px;">
-      📸 After clicking submit, WhatsApp will open.<br>
-      Please attach your <b>payment receipt image</b> and send.
-    </p>
-
-    <button onclick="submitDeposit()">Submit Deposit</button>
+  <!-- WHATSAPP BUTTON -->
+  <div class="box" style="text-align:center;">
+    <a href="https://wa.me/94717503915" target="_blank">
+      <button style="width:100%; font-size:16px;">
+        💬 Send Details via WhatsApp
+      </button>
+    </a>
   </div>
 
 </div>
 
-<!-- BOTTOM NAV -->
+<!-- Bottom Navigation -->
 <div class="bottom-nav">
   <a href="dashboard.html">🏠<br>Home</a>
-  <a href="plans.html">📊<br>Plans</a>
+  <a href="deposit.html">💰<br>Deposit</a>
   <a href="withdraw.html">💸<br>Withdraw</a>
   <a href="profile.html">👤<br>Profile</a>
 </div>
 
-<script type="module" src="js/deposit.js"></script>
 </body>
-  </html>
+</html>
