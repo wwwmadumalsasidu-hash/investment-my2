@@ -10,7 +10,7 @@ import { onAuthStateChanged } from
 
 let currentUser = null;
 
-/* ---------------- AUTH ---------------- */
+/* AUTH */
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     location.href = "index.html";
@@ -18,27 +18,30 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   currentUser = user;
-  loadPlansStatus();
+  initButtons();
+  loadPlans();
 });
 
-/* ---------------- BUY PLAN ---------------- */
-window.buyPlan = async (planId, price, totalReturn) => {
-  if (!currentUser) return;
+/* BUTTON EVENTS */
+function initButtons() {
+  document.querySelectorAll(".buy-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const planId = btn.dataset.plan;
+      const price = Number(btn.dataset.price);
+      const total = Number(btn.dataset.total);
+      await buyPlan(planId, price, total);
+    });
+  });
+}
 
+/* BUY PLAN */
+async function buyPlan(planId, price, totalReturn) {
   const userRef = doc(db, "users", currentUser.uid);
   const planRef = doc(db, "users", currentUser.uid, "plans", planId);
 
   const userSnap = await getDoc(userRef);
-  const planSnap = await getDoc(planRef);
-
   if (!userSnap.exists()) {
-    alert("User data not found");
-    return;
-  }
-
-  // already active
-  if (planSnap.exists()) {
-    alert("⚠️ This plan is already active");
+    alert("User not found");
     return;
   }
 
@@ -49,31 +52,33 @@ window.buyPlan = async (planId, price, totalReturn) => {
     return;
   }
 
-  const startTime = Date.now();
-  const endTime = startTime + (30 * 24 * 60 * 60 * 1000);
+  const planSnap = await getDoc(planRef);
+  if (planSnap.exists()) {
+    alert("⚠️ Plan already active");
+    return;
+  }
 
-  // deduct balance
+  const start = Date.now();
+  const end = start + 30 * 24 * 60 * 60 * 1000;
+
   await updateDoc(userRef, {
     balance: balance - price
   });
 
-  // save plan
   await setDoc(planRef, {
     price,
     totalReturn,
-    startTime,
-    endTime,
+    start,
+    end,
     status: "ACTIVE"
   });
 
-  alert("✅ Plan Activated Successfully");
-  loadPlansStatus();
-};
+  alert("✅ Plan Activated");
+  loadPlans();
+}
 
-/* ---------------- LOAD PLAN STATUS ---------------- */
-async function loadPlansStatus() {
-  if (!currentUser) return;
-
+/* LOAD PLANS */
+async function loadPlans() {
   const planIds = [
     "PLAN_1000",
     "PLAN_3000",
@@ -87,51 +92,39 @@ async function loadPlansStatus() {
     const snap = await getDoc(planRef);
 
     const statusEl = document.getElementById("status-" + id);
-    const btn = statusEl?.nextElementSibling;
+    const btn = document.querySelector(`[data-plan="${id}"]`);
 
     if (!snap.exists()) {
-      if (statusEl) statusEl.innerText = "";
-      if (btn) {
-        btn.disabled = false;
-        btn.innerText = "Buy Now";
-      }
+      statusEl.innerText = "";
+      btn.disabled = false;
+      btn.innerText = "Buy Now";
       continue;
     }
 
     const data = snap.data();
 
-    if (Date.now() >= data.endTime) {
-      statusEl.innerHTML = "✅ Completed";
-      btn.disabled = true;
-      btn.innerText = "Completed";
-      continue;
-    }
-
     btn.disabled = true;
     btn.innerText = "ACTIVE";
 
-    startCountdown(statusEl, data.endTime);
+    startTimer(statusEl, data.end);
   }
 }
 
-/* ---------------- TIMER ---------------- */
-function startCountdown(el, endTime) {
-  function update() {
+/* TIMER */
+function startTimer(el, endTime) {
+  function tick() {
     const diff = endTime - Date.now();
-
     if (diff <= 0) {
       el.innerHTML = "✅ Completed";
       return;
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
 
-    el.innerHTML = `⏳ Active: <b>${days}d ${hours}h</b> remaining`;
+    el.innerHTML = `⏳ ${d} days ${h} hours remaining`;
   }
 
-  update();
-  setInterval(update, 1000 * 60);
+  tick();
+  setInterval(tick, 60000);
 }
