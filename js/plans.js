@@ -4,11 +4,16 @@ import {
   getDoc,
   updateDoc,
   setDoc,
+  collection,
+  query,
+  where,
+  getDocs,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { onAuthStateChanged } from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-let currentUser;
+let currentUser = null;
 
 onAuthStateChanged(auth, (user) => {
   if (!user) {
@@ -18,35 +23,58 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-window.buyPlan = async (price, totalReturn) => {
+/**
+ * BUY PLAN
+ * @param {string} planId  (ex: PLAN_1000)
+ * @param {number} price
+ * @param {number} totalReturn
+ */
+window.buyPlan = async (planId, price, totalReturn) => {
   if (!currentUser) return;
 
   const userRef = doc(db, "users", currentUser.uid);
-  const snap = await getDoc(userRef);
+  const userSnap = await getDoc(userRef);
 
-  if (!snap.exists()) {
+  if (!userSnap.exists()) {
     alert("User data not found");
     return;
   }
 
-  const data = snap.data();
+  const userData = userSnap.data();
 
-  if (data.balance < price) {
+  // ❌ balance check
+  if (userData.balance < price) {
     alert("❌ Insufficient balance");
     return;
   }
 
-  const dailyProfit = Math.floor(totalReturn / 30);
+  // ❌ check if same plan already ACTIVE
+  const plansRef = collection(db, "users", currentUser.uid, "plans");
+  const q = query(
+    plansRef,
+    where("planId", "==", planId),
+    where("status", "==", "ACTIVE")
+  );
+  const existing = await getDocs(q);
+
+  if (!existing.empty) {
+    alert("⚠️ This plan is already active");
+    return;
+  }
+
+  // dates
   const startDate = Date.now();
   const endDate = startDate + 30 * 24 * 60 * 60 * 1000;
+  const dailyProfit = Math.floor(totalReturn / 30);
 
-  // deduct balance
+  // ✅ deduct balance
   await updateDoc(userRef, {
-    balance: data.balance - price
+    balance: userData.balance - price
   });
 
-  // save active plan
-  await setDoc(doc(db, "users", currentUser.uid, "plans", String(startDate)), {
+  // ✅ save plan
+  await setDoc(doc(plansRef), {
+    planId,
     price,
     totalReturn,
     dailyProfit,
@@ -57,4 +85,5 @@ window.buyPlan = async (price, totalReturn) => {
   });
 
   alert("✅ Plan Activated Successfully");
+  location.reload();
 };
