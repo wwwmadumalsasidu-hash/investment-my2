@@ -6,15 +6,21 @@
 </head>
 <body>
 
-<h2>Dashboard</h2>
-<div id="balance">Balance: --</div>
+<div class="dash-header">
+  <h2>Dashboard</h2>
+</div>
 
-<nav>
-  <a href="deposit.html">Deposit</a>
-  <a href="withdraw.html">Withdraw</a>
-  <a href="plans.html">Plans</a>
-  <a href="profile.html">Profile</a>
-</nav>
+<div class="balance-card">
+  <p>Total Balance</p>
+  <h1>LKR <span id="balance">0</span></h1>
+</div>
+
+<div class="action-grid">
+  <a href="deposit.html" class="btn deposit">💰 Deposit</a>
+  <a href="withdraw.html" class="btn withdraw">🏦 Withdraw</a>
+  <a href="plans.html" class="btn plans">📊 Plans</a>
+  <a href="profile.html" class="btn profile">👤 Profile</a>
+</div>
 
 <script type="module" src="js/dashboard.js"></script>
 </body>
