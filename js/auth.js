@@ -1,30 +1,44 @@
 import { auth, db } from "./firebase.js";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { doc, setDoc } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import {
+  doc, setDoc, getDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-window.register = async function(){
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const username = document.getElementById("username").value;
+window.register = async () => {
+  const email = emailInput();
+  const password = passwordInput();
 
-  const user = await createUserWithEmailAndPassword(auth,email,password);
+  const cred = await createUserWithEmailAndPassword(auth, email, password);
+  await sendEmailVerification(cred.user);
 
-  await setDoc(doc(db,"users",user.user.uid),{
-    username,
+  await setDoc(doc(db, "users", cred.user.uid), {
     email,
-    balance: 0
+    balance: 0,
+    createdAt: serverTimestamp()
   });
 
-  alert("Account created");
-  location.href="index.html";
+  alert("Registered. Verify email.");
+};
+
+window.login = async () => {
+  const email = emailInput();
+  const password = passwordInput();
+
+  const cred = await signInWithEmailAndPassword(auth, email, password);
+  if (!cred.user.emailVerified) {
+    alert("Verify your email first");
+    return;
+  }
+  location.href = "dashboard.html";
+};
+
+function emailInput() {
+  return document.getElementById("email").value;
 }
-
-window.login = async function(){
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  await signInWithEmailAndPassword(auth,email,password);
-  location.href="dashboard.html";
+function passwordInput() {
+  return document.getElementById("password").value;
 }
