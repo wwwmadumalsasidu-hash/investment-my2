@@ -1,18 +1,66 @@
-<h2>Deposit</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Deposit | CHUTTA INVESTMENT PLAN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-<div class="box">
-<b>NATIONAL SAVINGS BANK</b><br>
-100085101379<br>
-U.P.S. MADHUMAL<br>
-KULIYAPITIYA
+<div class="container">
+
+  <h2 style="text-align:center;">💰 Deposit Funds</h2>
+  <p class="small" style="text-align:center;">
+    Send payment & upload receipt via WhatsApp
+  </p>
+
+  <!-- BANK DETAILS BOX -->
+  <div class="box">
+    <h3 style="text-align:center; color:#38bdf8;">🏦 Payment Details</h3>
+
+    <p style="line-height:1.8; font-size:14px;">
+      <b>Bank:</b> NATIONAL SAVINGS BANK<br>
+      <b>Account No:</b> 100085101379<br>
+      <b>Account Name:</b> U.P.S. MADHUMAL<br>
+      <b>Branch:</b> KULIYAPITIYA
+    </p>
+
+    <hr style="border:0.5px solid #1e293b; margin:10px 0;">
+
+    <p style="line-height:1.8; font-size:14px;">
+      <b>BINANCE ID:</b> 799445746
+    </p>
+  </div>
+
+  <!-- DEPOSIT FORM -->
+  <div class="box">
+    <h3 style="text-align:center; color:#22c55e;">📥 Submit Deposit</h3>
+
+    <input
+      type="number"
+      id="amount"
+      placeholder="Enter Deposit Amount (LKR)"
+    >
+
+    <p class="small" style="margin-top:8px;">
+      📸 After clicking submit, WhatsApp will open.<br>
+      Please attach your <b>payment receipt image</b> and send.
+    </p>
+
+    <button onclick="submitDeposit()">Submit Deposit</button>
+  </div>
+
 </div>
 
-<div class="box">
-<b>BINANCE ID</b><br>
-799445746
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <a href="dashboard.html">🏠<br>Home</a>
+  <a href="plans.html">📊<br>Plans</a>
+  <a href="withdraw.html">💸<br>Withdraw</a>
+  <a href="profile.html">👤<br>Profile</a>
 </div>
-
-<input id="amount" placeholder="Amount">
-<button onclick="sendDeposit()">Submit</button>
 
 <script type="module" src="js/deposit.js"></script>
+</body>
+  </html>
