@@ -65,13 +65,16 @@ window.buyPlan = async (planId, price, total) => {
 };
 
 function disableButton(planId) {
-  document
-    .querySelector(`[data-plan="${planId}"] button`)
-    .disabled = true;
+  const planBox = document.querySelector(`[data-plan="${planId}"]`);
+  if (!planBox) return;
+  const btn = planBox.querySelector("button");
+  btn.disabled = true;
+  btn.innerText = "Active";
 }
 
 function startTimer(planId, end) {
-  const el = document.getElementById(planId);
+  const el = document.getElementById("status-" + planId);
+  if (!el) return;
 
   const timer = setInterval(() => {
     const diff = end - Date.now();
@@ -87,4 +90,4 @@ function startTimer(planId, end) {
 
     el.innerText = `🟢 Active | ${days} days ${hours} hours`;
   }, 1000);
-}
+    }
