@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Investment Plans</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="top-bar">
+  <h3>Investment Plans</h3>
+  <a href="dashboard.html" class="btn small">Back</a>
+</header>
+
+<div class="container">
+
+  <div class="plan">
+    <h4>Starter Plan</h4>
+    <p>Cost: $10</p>
+    <p>Daily Profit: $0.5</p>
+    <p>Duration: 30 Days</p>
+    <button onclick="buyPlan(10, 0.5)">Buy</button>
+  </div>
+
+  <div class="plan">
+    <h4>Standard Plan</h4>
+    <p>Cost: $50</p>
+    <p>Daily Profit: $3</p>
+    <p>Duration: 30 Days</p>
+    <button onclick="buyPlan(50, 3)">Buy</button>
+  </div>
+
+  <div class="plan">
+    <h4>Premium Plan</h4>
+    <p>Cost: $100</p>
+    <p>Daily Profit: $7</p>
+    <p>Duration: 30 Days</p>
+    <button onclick="buyPlan(100, 7)">Buy</button>
+  </div>
+
+</div>
+
+<script type="module" src="js/firebase.js"></script>
+<script type="module" src="js/invest.js"></script>
+</body>
+</html>
