@@ -1,10 +1,28 @@
 import { auth, db } from "./firebase.js";
-import { onAuthStateChanged } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { signOut, onAuthStateChanged } from
+  "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { doc, getDoc } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 onAuthStateChanged(auth, async (user) => {
-  const snap = await getDoc(doc(db, "users", user.uid));
-  info.innerText = user.email + " | Balance: " + snap.data().balance;
+  if (!user) {
+    location.href = "index.html";
+    return;
+  }
+
+  document.getElementById("userEmail").innerText = user.email;
+  document.getElementById("userUID").innerText = user.uid;
+
+  const userRef = doc(db, "users", user.uid);
+  const snap = await getDoc(userRef);
+
+  if (snap.exists()) {
+    document.getElementById("userBalance").innerText =
+      snap.data().balance || 0;
+  }
 });
+
+window.logout = async () => {
+  await signOut(auth);
+  location.href = "index.html";
+};
