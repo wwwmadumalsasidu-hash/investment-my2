@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="css/style.css">
+<title>Login</title>
 </head>
 <body>
 
-<div class="card">
-  <h2>Login</h2>
+<h2>Login</h2>
 
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
 
-  <button onclick="login()">Login</button>
-
-  <a href="register.html">Create new account</a>
-</div>
+<p><a href="register.html">Create account</a></p>
 
 <script type="module" src="js/auth.js"></script>
 </body>
