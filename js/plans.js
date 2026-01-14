@@ -90,4 +90,4 @@ function startTimer(planId, end) {
 
     el.innerText = `🟢 Active | ${days} days ${hours} hours`;
   }, 1000);
-    }
+}
