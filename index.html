@@ -2,18 +2,29 @@
 <html>
 <head>
   <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h2>Login</h2>
+  <div class="container">
 
-<input id="email" placeholder="Email">
-<input id="password" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
+    <h2>Login</h2>
 
-<p><a href="register.html">Create account</a></p>
+    <input id="email" type="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
 
-<script type="module" src="auth.js"></script>
+    <button onclick="login()">Login</button>
+
+    <p class="small">
+      <a href="register.html">Create account</a>
+    </p>
+
+  </div>
+
+  <!-- MUST be here -->
+  <script type="module" src="auth.js"></script>
+
 </body>
 </html>
