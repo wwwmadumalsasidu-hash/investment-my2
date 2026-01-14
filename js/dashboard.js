@@ -1,12 +1,19 @@
 import { auth, db } from "./firebase.js";
 import { onAuthStateChanged } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { doc, getDoc } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 onAuthStateChanged(auth, async (user) => {
-  if (!user) location.href = "index.html";
+  if (!user) {
+    location.href = "index.html";
+    return;
+  }
+
   const snap = await getDoc(doc(db, "users", user.uid));
-  document.getElementById("balance").innerText =
-    "Balance: LKR " + snap.data().balance;
+
+  if (snap.exists()) {
+    document.getElementById("balanceAmount").innerText =
+      "LKR " + snap.data().balance;
+  }
 });
