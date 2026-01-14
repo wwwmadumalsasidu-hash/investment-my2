@@ -2,88 +2,118 @@ import { auth, db } from "./firebase.js";
 import {
   doc,
   getDoc,
-  updateDoc,
   setDoc,
+  updateDoc,
   collection,
-  query,
-  where,
-  getDocs,
-  serverTimestamp
+  getDocs
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { onAuthStateChanged } from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-let currentUser = null;
+let currentUser;
 
-onAuthStateChanged(auth, (user) => {
+/* ================= AUTH ================= */
+onAuthStateChanged(auth, async (user) => {
   if (!user) {
     location.href = "index.html";
-  } else {
-    currentUser = user;
+    return;
   }
+  currentUser = user;
+  loadActivePlans();
 });
 
-/**
- * BUY PLAN
- * @param {string} planId  (ex: PLAN_1000)
- * @param {number} price
- * @param {number} totalReturn
- */
+/* ================= BUY PLAN ================= */
 window.buyPlan = async (planId, price, totalReturn) => {
   if (!currentUser) return;
 
   const userRef = doc(db, "users", currentUser.uid);
   const userSnap = await getDoc(userRef);
 
-  if (!userSnap.exists()) {
-    alert("User data not found");
+  if (!userSnap.exists()) return;
+
+  const data = userSnap.data();
+
+  if (data.balance < price) {
+    alert("❌ Insufficient Balance");
     return;
   }
 
-  const userData = userSnap.data();
+  const planRef = doc(db, "users", currentUser.uid, "plans", planId);
+  const planSnap = await getDoc(planRef);
 
-  // ❌ balance check
-  if (userData.balance < price) {
-    alert("❌ Insufficient balance");
-    return;
-  }
-
-  // ❌ check if same plan already ACTIVE
-  const plansRef = collection(db, "users", currentUser.uid, "plans");
-  const q = query(
-    plansRef,
-    where("planId", "==", planId),
-    where("status", "==", "ACTIVE")
-  );
-  const existing = await getDocs(q);
-
-  if (!existing.empty) {
+  if (planSnap.exists() && planSnap.data().status === "ACTIVE") {
     alert("⚠️ This plan is already active");
     return;
   }
 
-  // dates
   const startDate = Date.now();
-  const endDate = startDate + 30 * 24 * 60 * 60 * 1000;
+  const endDate = startDate + (30 * 24 * 60 * 60 * 1000);
   const dailyProfit = Math.floor(totalReturn / 30);
 
-  // ✅ deduct balance
+  /* deduct balance */
   await updateDoc(userRef, {
-    balance: userData.balance - price
+    balance: data.balance - price
   });
 
-  // ✅ save plan
-  await setDoc(doc(plansRef), {
+  /* save plan */
+  await setDoc(planRef, {
     planId,
     price,
     totalReturn,
     dailyProfit,
     startDate,
     endDate,
-    status: "ACTIVE",
-    createdAt: serverTimestamp()
+    status: "ACTIVE"
   });
 
-  alert("✅ Plan Activated Successfully");
-  location.reload();
+  alert("✅ Plan Activated");
+  loadActivePlans();
 };
+
+/* ================= LOAD ACTIVE PLANS ================= */
+async function loadActivePlans() {
+  const plansRef = collection(db, "users", currentUser.uid, "plans");
+  const snap = await getDocs(plansRef);
+
+  snap.forEach((docSnap) => {
+    const plan = docSnap.data();
+
+    if (plan.status === "ACTIVE") {
+      startTimer(plan.planId, plan.endDate);
+
+      const btn = document.querySelector(
+        `button[onclick*="${plan.planId}"]`
+      );
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = "ACTIVE";
+      }
+    }
+  });
+}
+
+/* ================= TIMER ================= */
+function startTimer(planId, endDate) {
+  const statusEl = document.getElementById("status-" + planId);
+
+  const interval = setInterval(() => {
+    const now = Date.now();
+    const diff = endDate - now;
+
+    if (diff <= 0) {
+      clearInterval(interval);
+      statusEl.innerHTML = "✅ Plan Completed";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    statusEl.innerHTML = `
+      ⏳ Remaining:
+      <b>${days}d ${hours}h ${minutes}m ${seconds}s</b>
+    `;
+  }, 1000);
+    }
