@@ -1,15 +1,17 @@
-/* RESET */
+/* =====================
+   RESET
+===================== */
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:'Segoe UI', sans-serif;
+  font-family:'Segoe UI', system-ui, sans-serif;
 }
 
 body{
   min-height:100vh;
   background:radial-gradient(circle at top,#1e3a8a,#020617);
-  color:#fff;
+  color:#ffffff;
   padding-bottom:90px;
 }
 
@@ -18,8 +20,8 @@ body{
 ===================== */
 .top-title{
   margin:22px auto;
-  width:88%;
-  max-width:380px;
+  width:90%;
+  max-width:420px;
   background:linear-gradient(135deg,#7c7cff,#a855f7);
   border-radius:22px;
   padding:18px 16px;
@@ -28,29 +30,37 @@ body{
 }
 
 .top-title h1{
-  font-size:17px;
-  font-weight:700;
+  font-size:18px;
+  font-weight:800;
   letter-spacing:1px;
 }
 
 .top-title p{
   font-size:12px;
-  opacity:0.85;
+  opacity:0.9;
   margin-top:5px;
 }
 
 /* =====================
-   BALANCE CARD
+   CONTAINER
+===================== */
+.container{
+  width:90%;
+  max-width:420px;
+  margin:0 auto;
+}
+
+/* =====================
+   BALANCE / CARD
 ===================== */
 .balance-wrapper{
   display:flex;
   justify-content:center;
-  margin-top:28px;
+  margin-top:26px;
 }
 
 .balance-card{
-  width:85%;
-  max-width:320px;
+  width:100%;
   background:linear-gradient(135deg,#00c6ff,#0ea5e9);
   padding:26px 20px;
   border-radius:24px;
@@ -64,9 +74,120 @@ body{
 }
 
 .balance-card h2{
-  font-size:34px;
+  font-size:30px;
   margin-top:10px;
   font-weight:800;
+}
+
+/* =====================
+   BOX (INFO / PLAN / FORM)
+===================== */
+.box{
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(12px);
+  border-radius:22px;
+  padding:20px;
+  margin-top:20px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.35);
+}
+
+.box h3{
+  font-size:16px;
+  margin-bottom:10px;
+}
+
+.box p{
+  font-size:14px;
+  line-height:1.6;
+  opacity:0.95;
+}
+
+.small{
+  font-size:12px;
+  opacity:0.8;
+}
+
+/* =====================
+   PLAN BOX
+===================== */
+.plan{
+  position:relative;
+}
+
+.plan button{
+  margin-top:14px;
+}
+
+/* =====================
+   INPUTS
+===================== */
+input{
+  width:100%;
+  padding:12px 14px;
+  border-radius:14px;
+  border:none;
+  outline:none;
+  margin-top:8px;
+  font-size:14px;
+}
+
+/* =====================
+   BUTTONS
+===================== */
+button,
+.btn{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:20px;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  background:linear-gradient(135deg,#22c55e,#4ade80);
+  color:#020617;
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  transition:0.25s;
+}
+
+button:hover,
+.btn:hover{
+  transform:translateY(-2px);
+  opacity:0.95;
+}
+
+button:disabled{
+  background:#475569;
+  color:#cbd5f5;
+  cursor:not-allowed;
+}
+
+/* =====================
+   STATUS TEXT
+===================== */
+.status{
+  margin-top:8px;
+  font-size:12px;
+  font-weight:600;
+}
+
+/* =====================
+   PROFILE IMAGE
+===================== */
+.profile-img{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.45);
+}
+
+/* =====================
+   LINKS
+===================== */
+a{
+  color:#38bdf8;
+  text-decoration:none;
 }
 
 /* =====================
@@ -100,7 +221,20 @@ body{
   color:#38bdf8;
 }
 
-/* ACTIVE TAB (optional) */
 .bottom-nav a.active{
   color:#38bdf8;
-                            }
+}
+
+/* =====================
+   WHATSAPP BUTTON
+===================== */
+.whatsapp-btn{
+  display:inline-block;
+  margin-top:14px;
+  padding:12px 22px;
+  background:#25D366;
+  color:#020617;
+  font-weight:800;
+  border-radius:22px;
+  text-align:center;
+    }
