@@ -12,29 +12,26 @@
 
   <h2 style="text-align:center;">💸 Withdraw Request</h2>
   <p class="small" style="text-align:center;">
-    Please send your withdraw details via WhatsApp
+    Send your withdraw request via WhatsApp
   </p>
 
-  <!-- INFO BOX -->
+  <!-- Instructions -->
   <div class="box">
-    <h3>📌 Instructions</h3>
-    <p class="small">
-      Please include the following details in your message:
-    </p>
+    <h3>📌 Required Details</h3>
     <ul class="small">
       <li>📧 Registered Email</li>
       <li>💰 Withdraw Amount</li>
       <li>🏦 Bank Name</li>
       <li>🏦 Account Number</li>
       <li>👤 Account Holder Name</li>
-      <li>🧾 Receipt Screenshot (if any)</li>
+      <li>🧾 Receipt Screenshot</li>
     </ul>
   </div>
 
-  <!-- MESSAGE TEMPLATE BOX -->
+  <!-- Message Box -->
   <div class="box">
-    <h3>✍️ Message Format</h3>
-    <textarea rows="10" readonly style="width:100%; padding:10px;">
+    <h3>✍️ Message Template</h3>
+    <textarea id="withdrawMessage" rows="10" readonly style="width:100%;padding:10px;">
 WITHDRAW REQUEST
 
 📧 Email:
@@ -47,14 +44,21 @@ WITHDRAW REQUEST
 Please process my withdrawal.
     </textarea>
     <p class="small">
-      Copy this message, fill your details & send via WhatsApp
+      Copy or send this message via WhatsApp
     </p>
   </div>
 
-  <!-- WHATSAPP BUTTON -->
+  <!-- WhatsApp Button -->
   <div class="box" style="text-align:center;">
-    <a onclick="openWithdrawWhatsApp()" class="whatsapp-btn">
-      📲 Send Withdraw Details via WhatsApp
+    <button class="whatsapp-btn" onclick="sendWithdrawWhatsApp()">
+      📲 Send via WhatsApp
+    </button>
+
+    <br><br>
+
+    <!-- Direct WhatsApp Link Button -->
+    <a href="https://wa.me/94717503915" target="_blank" class="whatsapp-link">
+      🔗 Open WhatsApp Chat
     </a>
   </div>
 
