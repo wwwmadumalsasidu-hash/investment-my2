@@ -2,33 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Withdraw</title>
+  <title>Withdraw | CHUTTA INVESTMENT PLAN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <div class="container">
-  <h2>💸 Withdraw</h2>
 
+  <h2 style="text-align:center;">💸 Withdraw Request</h2>
+  <p class="small" style="text-align:center;">
+    Please send your withdraw details via WhatsApp
+  </p>
+
+  <!-- INFO BOX -->
   <div class="box">
-    <h3>📤 Withdraw Instructions</h3>
+    <h3>📌 Instructions</h3>
     <p class="small">
-      Please send <b>Email + Bank Details + Receipt Screenshot</b>
-      via WhatsApp using the button below.
+      Please include the following details in your message:
+    </p>
+    <ul class="small">
+      <li>📧 Registered Email</li>
+      <li>💰 Withdraw Amount</li>
+      <li>🏦 Bank Name</li>
+      <li>🏦 Account Number</li>
+      <li>👤 Account Holder Name</li>
+      <li>🧾 Receipt Screenshot (if any)</li>
+    </ul>
+  </div>
+
+  <!-- MESSAGE TEMPLATE BOX -->
+  <div class="box">
+    <h3>✍️ Message Format</h3>
+    <textarea rows="10" readonly style="width:100%; padding:10px;">
+WITHDRAW REQUEST
+
+📧 Email:
+💰 Withdraw Amount:
+🏦 Bank Name:
+🏦 Account Number:
+👤 Account Holder Name:
+🧾 Receipt Screenshot:
+
+Please process my withdrawal.
+    </textarea>
+    <p class="small">
+      Copy this message, fill your details & send via WhatsApp
     </p>
   </div>
 
-  <div class="box">
-    <a id="whatsappLink" class="whatsapp-btn" target="_blank">
-      📲 Send Withdraw Request
+  <!-- WHATSAPP BUTTON -->
+  <div class="box" style="text-align:center;">
+    <a onclick="openWithdrawWhatsApp()" class="whatsapp-btn">
+      📲 Send Withdraw Details via WhatsApp
     </a>
   </div>
+
 </div>
 
+<!-- Bottom Navigation -->
 <div class="bottom-nav">
   <a href="dashboard.html">🏠<br>Home</a>
   <a href="deposit.html">💰<br>Deposit</a>
+  <a href="withdraw.html" class="active">💸<br>Withdraw</a>
   <a href="profile.html">👤<br>Profile</a>
 </div>
 
