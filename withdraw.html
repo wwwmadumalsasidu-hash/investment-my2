@@ -1,6 +1,37 @@
-<h2>Withdraw</h2>
-<input id="bank" placeholder="Bank details">
-<input id="amount" placeholder="Amount">
-<button onclick="sendWithdraw()">Submit</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Withdraw</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>💸 Withdraw</h2>
+
+  <div class="box">
+    <h3>📤 Withdraw Instructions</h3>
+    <p class="small">
+      Please send <b>Email + Bank Details + Receipt Screenshot</b>
+      via WhatsApp using the button below.
+    </p>
+  </div>
+
+  <div class="box">
+    <a id="whatsappLink" class="whatsapp-btn" target="_blank">
+      📲 Send Withdraw Request
+    </a>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <a href="dashboard.html">🏠<br>Home</a>
+  <a href="deposit.html">💰<br>Deposit</a>
+  <a href="profile.html">👤<br>Profile</a>
+</div>
 
 <script type="module" src="js/withdraw.js"></script>
+</body>
+</html>
